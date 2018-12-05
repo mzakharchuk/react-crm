@@ -17,10 +17,14 @@
 .logo-color{
     color: #ccc;
 }
-.navigation-bar  > a {
+.navigation-bar   a {
     display: inline-block;
     vertical-align: top;
     margin-right: 20px;
     height: 45px;     
     line-height: 47px;
+}
+
+.navigation-bar__profile{
+    text-align: end;
 }

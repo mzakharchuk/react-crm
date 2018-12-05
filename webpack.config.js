@@ -8,6 +8,7 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].js',
     },
+    devtool:'source-map' ,
     module: {
         rules: [
             {
@@ -29,5 +30,11 @@ module.exports = {
                 filename: "./index.html"
             }
         )
-    ]
+    ],
+    devServer: {
+        contentBase: 'dist',
+        hot: true,
+        inline: true,
+        historyApiFallback: true
+    },
 }
