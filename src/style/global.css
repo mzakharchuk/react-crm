@@ -3,4 +3,9 @@
     color: #4d4d4d;
     margin: 0 auto;
 }
+.button-cancel-save{
+    text-align: end;
+    grid-gap: 10px;
 
+}
+.save {     margin-left:10px; }

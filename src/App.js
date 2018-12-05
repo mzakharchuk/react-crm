@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 
 import { history } from './_helpers'
 import { 
@@ -8,8 +8,9 @@ import {
 } from './components/_common'
 
 import { HomePage } from "./components/home"
-import { SettingsPage } from "./components/settings"
+import  SettingsPage  from "./components/settings/SettingsPage"
 import { PageNotFound } from './components/notfound/PageNotFound'
+import CreatePage from './components/create/CreatePage'
 
 class App extends React.Component {
     render(){
@@ -20,8 +21,12 @@ class App extends React.Component {
                 <div className="container">
                 <Router history={history}>
                     <Switch>
-                        <Route path="/" exact component={HomePage}/>
-                        <Route path="/settings" exact component={SettingsPage}/>
+                        <Route exact path="/" component={HomePage}/>
+                   
+                        <Route exact path="/settings"  component={SettingsPage}/>
+                        <Redirect from="/settings/create" to="/create"/>
+                        <Route exact path="/create" component={CreatePage}/>
+          
                         <Route component={PageNotFound}/>
                     </Switch>
                 </Router>
