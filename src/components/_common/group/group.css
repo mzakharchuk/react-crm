@@ -1,0 +1,22 @@
+.block {
+  width: 171px;
+  height: 48px;
+  margin: 10px;
+  padding: 5px;
+  background: salmon;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.block > label{
+  cursor: pointer;
+  color: antiquewhite;
+}
+  .message-block {
+    height: 100%;
+}
+.active-block{
+  background: rgb(240, 189, 189);
+}
+.block:hover{
+  background: rgb(240, 189, 189);
+}

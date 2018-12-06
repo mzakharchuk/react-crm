@@ -11,6 +11,7 @@ import { HomePage } from "./components/home"
 import  SettingsPage  from "./components/settings/SettingsPage"
 import { PageNotFound } from './components/notfound/PageNotFound'
 import CreatePage from './components/create/CreatePage'
+import MessagePage from './components/message/MessagePage'
 
 class App extends React.Component {
     render(){
@@ -22,7 +23,8 @@ class App extends React.Component {
                 <Router history={history}>
                     <Switch>
                         <Route exact path="/" component={HomePage}/>
-                   
+                        <Route exact path="/message" component={MessagePage}/>
+                        
                         <Route exact path="/settings"  component={SettingsPage}/>
                         <Redirect from="/settings/create" to="/create"/>
                         <Route exact path="/create" component={CreatePage}/>

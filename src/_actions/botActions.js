@@ -1,4 +1,5 @@
 import * as types from '../types'
+import {telegramApi} from '../_api/telegramAPI'
 
 
 export function registerBot(bot){
@@ -18,4 +19,16 @@ export function registerBot(bot){
      }
 
     function success(bot){ return { type:types.BOT_REGISTER_SUCCESS, bot } }
+}
+export function getUpdates(token){
+    return dispatch => {
+            telegramApi.post(`/bot${token}/getUpdates`,{offset:0})
+        .then(response => {
+            dispatch(success(response.data.result))
+        }).catch(error=>{
+            throw(error)
+        })
+    }
+
+    function success(bot){ return { type:types.BOT_UPDATE_MESSAGE, bot } }
 }
