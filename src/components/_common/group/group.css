@@ -3,7 +3,7 @@
   height: 48px;
   margin: 10px;
   padding: 5px;
-  background: salmon;
+  background: rgb(240, 189, 189);
   border-radius: 7px;
   cursor: pointer;
 }
@@ -11,12 +11,9 @@
   cursor: pointer;
   color: antiquewhite;
 }
-  .message-block {
+.message-block {
     height: 100%;
 }
-.active-block{
-  background: rgb(240, 189, 189);
-}
-.block:hover{
-  background: rgb(240, 189, 189);
+.active-block, .block:hover{
+  background: salmon;
 }
