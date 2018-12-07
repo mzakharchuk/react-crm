@@ -1,3 +1,6 @@
 export * from './history'
 export * from './configureStore'
 export * from './face-backend'
+export * from './PrivateRoute'
+export * from './responseHelper'
+export * from './authHeader'

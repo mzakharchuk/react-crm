@@ -68,7 +68,7 @@ class MessagePage extends React.Component {
                     <GroupsBlock
                         selectedChat={this.state.selectedChat}
                         groups={this.props.chats} onSelect={this.onSelectHandler}/>
-                <div>
+                {this.state.messages.length >0 ?<div>
                     <MessageList   
                         messages={this.state.messages}/>
                     <MessageForm
@@ -76,7 +76,7 @@ class MessagePage extends React.Component {
                         message={this.state.message}
                         onChange={this.onChangeHandler}
                         onSendMessage={this.onSendMessageHandler}/>
-                </div>
+                </div>: null}
                 </div>
             </div>
         )
