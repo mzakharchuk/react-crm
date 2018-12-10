@@ -7,7 +7,7 @@ export function botReducer(state={}, action){
         case types.LOAD_BOTS_SUCCESS:
             return  { items:action.bots}
         case types.BOT_UPDATE_MESSAGE:
-            return {messages:action.bot}
+            return {...state,messages:action.bot}
         default :
             return state
     }

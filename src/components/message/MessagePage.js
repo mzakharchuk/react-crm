@@ -12,12 +12,15 @@ import {
     reduceMessages,
     getChats} from '../../selectors'
 import './MessagePage.css'
+import {Tabs, Tab} from 'react-bootstrap'
+
 
 const token = '511249933:AAGRiRrdE-DkPdIcM1wouJvak3ZB2rbkuvw'
 class MessagePage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
+            key: 1,
             selectedChat:'',
             message:'',
             messages:[]//this.props.messages ? this.props.messages.filter(x=>x.chatId === this.props.groups[0].id) : []        
@@ -25,10 +28,15 @@ class MessagePage extends React.Component {
         this.onChangeHandler = this.onChangeHandler.bind(this)
         this.onSelectHandler = this.onSelectHandler.bind(this)
         this.onSendMessageHandler = this.onSendMessageHandler.bind(this)
+        this.onSelectTabHandler = this.onSelectTabHandler.bind(this)
     }
     componentDidMount() {
         this.props.actions.loadMessages()
-        this.props.actions.getUpdates(token)
+        this.props.actions.loadBots().then(()=>{
+            const t = this.props.botItems[0].token
+            this.props.actions.getUpdates(t)
+        })
+      
     }
 
     onSelectHandler(id){
@@ -59,11 +67,31 @@ class MessagePage extends React.Component {
             this.setState({message:''})
         }).catch(error=> toastr.error(error))
     }
+    onSelectTabHandler(key){
+        this.setState({ key });
+    }
    
     render(){
         return (
             <div className="jumbotron">
-            <h2>messages</h2>
+            <Tabs
+                activeKey={this.state.key}
+                onSelect={this.onSelectTabHandler}
+                id="controlled-tab-example">
+                {this.props.botItems.map((item, index) => {
+                    return <Tab key={index}  eventKey={index +1 } title={item.name}>
+                content 1
+                     </Tab>
+                })}
+                 <Tab eventKey={2} title="Tab 2">
+                    content 2
+                </Tab>
+               
+            </Tabs>
+
+
+
+            {/* <h2>messages</h2>
                 <div className="container-message">
                     <GroupsBlock
                         selectedChat={this.state.selectedChat}
@@ -76,8 +104,8 @@ class MessagePage extends React.Component {
                         message={this.state.message}
                         onChange={this.onChangeHandler}
                         onSendMessage={this.onSendMessageHandler}/>
-                </div>: null}
-                </div>
+                </div>: <h1>Please select and start you conversation</h1>}
+                </div> */}
             </div>
         )
     }
@@ -87,7 +115,8 @@ function mapStateToProps(state){
     console.log(state)
     return{
         messages:reduceMessages(state.messages),
-        chats: getChats(state.bot.messages)
+        chats: getChats(state.bot.messages),
+        botItems: state.bot.items !== undefined ? state.bot.items : []
     }
 }
 function mapDispatchToProps(dispatch){

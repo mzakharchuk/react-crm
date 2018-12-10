@@ -30,6 +30,21 @@ export function configureFakeBackend() {
                     return;
                 }
 
+                     // get users
+                     if (url.endsWith('/bot/getAll') && opts.method === 'GET') {
+                        // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+                        if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
+                            resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(bots))});
+                        } else {
+                            // return 401 not authorised if token is null or invalid
+                            reject('Unauthorised');
+                        }
+    
+                        return;
+                    }
+
+
+
                      // authenticate
                      if (url.endsWith('/users/authenticate') && opts.method === 'POST') {
                         // get parameters from post request

@@ -12,6 +12,7 @@ class CreatePage extends React.Component {
 
         this.state = {
             bot:{
+                userId: this.props.user.id,
                 token:'',
                 name:''
             }
@@ -30,6 +31,7 @@ class CreatePage extends React.Component {
     }
     onCancelHandle(e){
         e.preventDefault()
+        this.props.history.push('/settings')
     }
     onSaveHandle(e){
         e.preventDefault()
@@ -40,6 +42,10 @@ class CreatePage extends React.Component {
 
     redirect(){
         toastr.success('Saved')
+        this.setState({bot:{
+            token:'',
+            name:''
+        }})
         this.props.history.push('/settings')
     }
     render(){
@@ -56,8 +62,9 @@ class CreatePage extends React.Component {
     }
 }
 function mapStateToProps(state){
+    const { user } = state.authentication
     return{
-        state
+        user
     }
 
 }

@@ -1,5 +1,6 @@
 import * as types from '../types'
 import {telegramApi} from '../_api/telegramAPI'
+import {handleResponse,authHeader} from '../_helpers'
 
 export function registerBot(bot){
     const requestOptions = {
@@ -23,13 +24,14 @@ export function registerBot(bot){
 export function loadBots(){
     const requestOptions = {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeader()
     };
 
      return dispatch => {
         return fetch(`/bot/getAll`,requestOptions)
-        .then(user => {
-            dispatch(success(bot))
+        .then(handleResponse)
+        .then(bots => {
+            dispatch(success(bots))
         }).catch(error=>{
             throw(error)
         })

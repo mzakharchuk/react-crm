@@ -3,12 +3,15 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { Link } from 'react-router-dom';
 import * as loginAction from '../../_actions/loginAction'
+import * as botActions from '../../_actions/botActions'
 import {TextInput} from '../_common'
 import toastr from 'toastr'
 
 class LoginPage extends Component {
     constructor(props){
         super(props)
+        this.props.actions.singOut()
+
         this.state = {
             user: {login:'',password:''},
             loggedIn:this.props.user.loggedIn 
@@ -27,7 +30,10 @@ class LoginPage extends Component {
         e.preventDefault()
         this.props.actions.signIn(this.state.user)
         .then(() => 
-            this.redirect())
+        {
+            this.props.actions.loadBots()
+            this.redirect()
+        })
         .catch(error=>
             toastr.error(error)
             )    
@@ -71,7 +77,7 @@ function mapStateToProps(state){
 }
 function mapDispatchToProps(dispatch){
     return {
-        actions: bindActionCreators(loginAction, dispatch)
+        actions: bindActionCreators({...loginAction,...botActions}, dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
