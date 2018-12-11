@@ -16,6 +16,9 @@ import MessagePage from './components/message/MessagePage'
 import RegisterPage from './components/register/RegisterPage'
 import LoginPage from './components/login/LoginPage'
 
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import ReduxToastr from 'react-redux-toastr'
+
 class App extends React.Component {
     render(){
         return (
@@ -38,6 +41,15 @@ class App extends React.Component {
                         <Route component={PageNotFound}/>
                     </Switch>
                 </Router>
+                <ReduxToastr
+                    timeOut={4000}
+                    newestOnTop={false}
+                    preventDuplicates
+                    position="top-right"
+                    transitionIn="fadeIn"
+                    transitionOut="fadeOut"
+                    progressBar
+                    closeOnToastrClick/>
                 </div>
             </div>
         )

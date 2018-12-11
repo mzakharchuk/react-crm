@@ -1,4 +1,4 @@
-/* .sidenav {
+.sidenav {
     height: 100%;
     width: 200px;
     position: fixed;
@@ -8,10 +8,10 @@
     background-color: #111;
     overflow-x: hidden;
     padding-top: 20px;
-} */
+} 
 
 /* Style the sidenav links and the dropdown button */
-/* .sidenav a {
+.sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 20px;
@@ -36,24 +36,23 @@
     text-align: left;
     cursor: pointer;
     outline: none;
-} */
+} 
 
-/* On mouse-over 
+/* On mouse-over */
 .sidenav a:hover {
     color: #f1f1f1;
 }
 
-/* Add an active class to the active dropdown button 
-.active {
+/* Add an active class to the active dropdown button */
+.active-nav-link{
     background-color: green;
     color: white;
 }
-a.active {
+a.active-nav-link{
     background-color: green;
     color: white;
 }
-Some media queries for responsiveness */
-/* @media screen and (max-height: 450px) {
+@media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-} */
+} 

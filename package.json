@@ -2,7 +2,7 @@
     "name": "react-crm-app",
     "version": "1.0.0",
     "scripts": {
-        "dev": "webpack-dev-server --hot --open --mode development",
+        "dev": "webpack-dev-server --hot --open --host 0.0.0.0 --port 3000 --mode development",
         "build": "webpack --mode production"
     },
     "dependencies": {
@@ -11,12 +11,12 @@
         "react-bootstrap": "^0.32.4",
         "react-dom": "^16.6.3",
         "react-redux": "^5.1.1",
+        "react-redux-toastr": "^7.4.4",
         "react-router-dom": "^4.3.1",
         "redux": "^4.0.1",
         "redux-thunk": "^2.3.0",
         "reselect": "^4.0.0",
-        "styled-components": "^4.1.2",
-        "toastr": "^2.1.4"
+        "styled-components": "^4.1.2"
     },
     "devDependencies": {
         "@babel/core": "^7.2.0",

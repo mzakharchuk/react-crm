@@ -3,7 +3,7 @@ import RegisterForm from './RegisterForm'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { withRouter } from 'react-router-dom'
-import toastr from 'toastr'
+import toastr from 'react-redux-toastr'
 
 import * as userActions from '../../_actions/userActions';
 

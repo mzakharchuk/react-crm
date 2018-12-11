@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import CreateForm from './CreateForm'
 import {bindActionCreators} from 'redux'
 import * as botActions from '../../_actions/botActions'
-import toastr from 'toastr'
+import {toastr} from 'react-redux-toastr'
 import { withRouter } from 'react-router-dom'
 
 class CreatePage extends React.Component {

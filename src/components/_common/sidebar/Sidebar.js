@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components';
 
-import './sidebar.css'
+//import './sidebar.css'
 
 
 const Sidenav = styled.div`
@@ -16,7 +16,7 @@ const Sidenav = styled.div`
     overflow-x: hidden;
     padding-top: 20px;
 `
-const activeClassName = 'active';
+const activeClassName = 'active-nav-link';
 const SideNanLink = styled(NavLink).attrs({
     activeClassName: activeClassName,
   })`
@@ -45,9 +45,9 @@ const SideNanLink = styled(NavLink).attrs({
         cursor: pointer;
         outline: none;
     }
-    &.${activeClassName} {
+    &.active-nav-link {
         background-color: green;
-    color: white;
+        color: white;
       }
 
 `
@@ -56,15 +56,15 @@ export class Sidebar extends React.Component {
         return (
             <div>
                 <Sidenav>
-                <SideNanLink to="/" exact activeClassName="active">Home</SideNanLink>
-                <SideNanLink to="/message" activeClassName="active">Message</SideNanLink>
-                <SideNanLink to="/settings" activeClassName="active">Settings</SideNanLink>
+                <SideNanLink to="/" exact activeClassName="active-nav-link">Home</SideNanLink>
+                <SideNanLink to="/message" activeClassName="active-nav-link">Message</SideNanLink>
+                <SideNanLink to="/settings" activeClassName="active-nav-link">Settings</SideNanLink>
                 </Sidenav>
             </div>
         //     <div className="sidenav">
-        //         <NavLink to="/" exact activeClassName="active">Home</NavLink>
-        //         <NavLink to="/message" activeClassName="active">Message</NavLink>
-        //         <NavLink to="/settings" activeClassName="active">Settings</NavLink>
+        //         <NavLink to="/" exact activeClassName="active-nav-link">Home</NavLink>
+        //         <NavLink to="/message" exact activeClassName="active-nav-link">Message</NavLink>
+        //         <NavLink to="/settings" exact activeClassName="active-nav-link">Settings</NavLink>
         //   </div>
         )
     }

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as botActions from '../../_actions/botActions'
 import * as messageActions from '../../_actions/messageActions'
-import toastr from 'toastr'
+import {toastr} from 'react-redux-toastr'
 import { withRouter } from 'react-router-dom'
 import { GroupsBlock } from '../_common'
 import {MessageForm,MessageList} from './'
@@ -33,10 +33,14 @@ class MessagePage extends React.Component {
     componentDidMount() {
         this.props.actions.loadMessages()
         this.props.actions.loadBots().then(()=>{
-            const t = this.props.botItems[0].token
-            this.props.actions.getUpdates(t)
-        })
-      
+            if(this.props.botItems.length>0){
+                this.loadBotConversation(this.props.botItems[0])
+            }
+        })      
+    }
+    loadBotConversation(bot){
+        this.props.actions.getUpdates(bot.token)
+        this.setState({key:bot})
     }
 
     onSelectHandler(id){
@@ -69,43 +73,43 @@ class MessagePage extends React.Component {
     }
     onSelectTabHandler(key){
         this.setState({ key });
+        this.loadBotConversation(key)
+        this.setState({messages:[]})
     }
    
     render(){
         return (
             <div className="jumbotron">
-            <Tabs
-                activeKey={this.state.key}
-                onSelect={this.onSelectTabHandler}
-                id="controlled-tab-example">
-                {this.props.botItems.map((item, index) => {
-                    return <Tab key={index}  eventKey={index +1 } title={item.name}>
-                content 1
-                     </Tab>
-                })}
-                 <Tab eventKey={2} title="Tab 2">
-                    content 2
-                </Tab>
-               
-            </Tabs>
-
-
-
-            {/* <h2>messages</h2>
-                <div className="container-message">
-                    <GroupsBlock
-                        selectedChat={this.state.selectedChat}
-                        groups={this.props.chats} onSelect={this.onSelectHandler}/>
-                {this.state.messages.length >0 ?<div>
-                    <MessageList   
-                        messages={this.state.messages}/>
-                    <MessageForm
-                        placeholder="Type your message and hit ENTER"
-                        message={this.state.message}
-                        onChange={this.onChangeHandler}
-                        onSendMessage={this.onSendMessageHandler}/>
-                </div>: <h1>Please select and start you conversation</h1>}
-                </div> */}
+                 <Tabs
+                    activeKey={this.state.key}
+                    animation={true}
+                    onSelect={this.onSelectTabHandler}
+                    id="controlled-tab-example"
+                >
+                    {this.props.botItems.map((item, index) => {
+                        return (
+                        <Tab key={index}  eventKey={item} title={item.name}>
+                        <h2>messages</h2>
+                        <div className="container-message">
+                            <GroupsBlock
+                                selectedChat={this.state.selectedChat}
+                                groups={this.props.chats} onSelect={this.onSelectHandler}/>
+                        {this.state.messages.length >0 
+                            ?<div>
+                                <MessageList   
+                                    messages={this.state.messages}/>
+                                <MessageForm
+                                    placeholder="Type your message and hit ENTER"
+                                    message={this.state.message}
+                                    onChange={this.onChangeHandler}
+                                    onSendMessage={this.onSendMessageHandler}/>
+                            </div>
+                        :<h1>Please select and start you conversation</h1>}
+                        </div>
+                        </Tab>
+                        )
+                    })}
+                </Tabs>
             </div>
         )
     }

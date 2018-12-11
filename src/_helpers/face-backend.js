@@ -11,11 +11,10 @@ export function configureFakeBackend() {
                 if (url.endsWith('/bot/register') && opts.method === 'POST') {
                     // get new user object from post body
                     let newBot = JSON.parse(opts.body);
-
                     // validation
-                    let duplicateBot = bots.filter(bot => { return bot.namebot === newBot.namebot; }).length;
+                    let duplicateBot = bots.filter(bot => { return bot.name === newBot.name; }).length;
                     if (duplicateBot) {
-                        reject('Bot name"' + newBot.namebot + '" is already taken');
+                        reject('Bot name"' + newBot.name + '" is already taken');
                         return;
                     }
 
