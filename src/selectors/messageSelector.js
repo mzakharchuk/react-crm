@@ -24,9 +24,9 @@ export function getChats(updates){
         return []
         return updates.map(x=>{
                 return {
-                    id:   x.message.chat.id,
-                    name: x.message.chat.title !==undefined ? x.message.chat.title:  x.message.chat.last_name!== undefined ? x.message.chat.first_name +' '+  x.message.chat.last_name:x.message.chat.first_name,
-                    type: x.message.chat.type,
+                    id:   x.chat.id,
+                    name: x.chat.title !==undefined ? x.chat.title:  x.chat.last_name!== undefined ? x.chat.first_name +' '+  x.chat.last_name:x.chat.first_name,
+                    type: x.chat.type,
                 }  
             }).reduce((acc,curr)=> acc.find(x=>x.id === curr.id)?acc:[...acc,curr],[])
     }    

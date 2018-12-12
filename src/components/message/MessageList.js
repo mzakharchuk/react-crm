@@ -2,7 +2,6 @@ import React from 'react'
 
 export const MessageList = ({messages}) => {
     const mess = messages.sort((a,b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0)); 
-    console.log(messages)
     return (
         <ul className="message-list">                 
         {mess ? mess.map(m => {

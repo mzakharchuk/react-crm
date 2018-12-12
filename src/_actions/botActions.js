@@ -41,11 +41,15 @@ export function loadBots(){
 }
 
 
-export function getUpdates(token){
+export function getUpdates({token, name}){
     return dispatch => {
             telegramApi.post(`/bot${token}/getUpdates`,{offset:0})
         .then(response => {
-            dispatch(success(response.data.result))
+            const result = {
+                name,
+                result: response.data.result
+            }
+            dispatch(success(result))
         }).catch(error=>{
             throw(error)
         })

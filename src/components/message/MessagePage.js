@@ -20,10 +20,10 @@ class MessagePage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            key: 1,
+            key: this.props.botItems.length >0?this.props.botItems[0].name: '',
             selectedChat:'',
             message:'',
-            messages:[]//this.props.messages ? this.props.messages.filter(x=>x.chatId === this.props.groups[0].id) : []        
+            messages:this.props.messages ? this.props.messages.filter(x=>x.chatId === this.props.groups[0].id) : []        
         }
         this.onChangeHandler = this.onChangeHandler.bind(this)
         this.onSelectHandler = this.onSelectHandler.bind(this)
@@ -31,7 +31,6 @@ class MessagePage extends React.Component {
         this.onSelectTabHandler = this.onSelectTabHandler.bind(this)
     }
     componentDidMount() {
-        this.props.actions.loadMessages()
         this.props.actions.loadBots().then(()=>{
             if(this.props.botItems.length>0){
                 this.loadBotConversation(this.props.botItems[0])
@@ -39,13 +38,15 @@ class MessagePage extends React.Component {
         })      
     }
     loadBotConversation(bot){
-        this.props.actions.getUpdates(bot.token)
-        this.setState({key:bot})
+        this.props.actions.getUpdates(bot)
+        this.props.actions.loadMessages(bot)
+        this.setState({key:bot.name})
     }
 
     onSelectHandler(id){
         this.setState({selectedChat:id})
-        this.setState({messages:[...this.props.messages.filter(x=>x.chatId === id)]})
+        const messages = this.props.botItems.find(x=>x.name===this.state.key).messages.filter(x=>x.chat.id === id)
+        this.setState({messages})
     }
     onChangeHandler(e){
         e.preventDefault()
@@ -63,21 +64,22 @@ class MessagePage extends React.Component {
                 }
 
         }
-        this.props.actions.sendMessage(token,senddata).then((data)=>{
+        this.props.actions.sendMessage(this.props.botItems.find(x=>x.name== this.state.key).token,senddata).then((data)=>{
             this.setState({messages:[
                 ...this.state.messages,
-                reduceMessage(data)
+                data
             ]})
             this.setState({message:''})
         }).catch(error=> toastr.error(error))
     }
     onSelectTabHandler(key){
         this.setState({ key });
-        this.loadBotConversation(key)
-        this.setState({messages:[]})
+        this.loadBotConversation(this.props.botItems.find(x=>x.name==key))
+        this.setState({selectedChat:'',messages:[]})
     }
    
     render(){
+        console.log('render')
         return (
             <div className="jumbotron">
                  <Tabs
@@ -88,16 +90,17 @@ class MessagePage extends React.Component {
                 >
                     {this.props.botItems.map((item, index) => {
                         return (
-                        <Tab key={index}  eventKey={item} title={item.name}>
+                        <Tab key={index}  eventKey={item.name} title={item.name}>
                         <h2>messages</h2>
                         <div className="container-message">
                             <GroupsBlock
                                 selectedChat={this.state.selectedChat}
-                                groups={this.props.chats} onSelect={this.onSelectHandler}/>
-                        {this.state.messages.length >0 
+                                groups={getChats(item.messages)} onSelect={this.onSelectHandler}/>
+                        {this.state.messages && this.state.selectedChat
+                    
                             ?<div>
                                 <MessageList   
-                                    messages={this.state.messages}/>
+                                    messages={reduceMessages(this.state.messages)}/>
                                 <MessageForm
                                     placeholder="Type your message and hit ENTER"
                                     message={this.state.message}
@@ -116,11 +119,11 @@ class MessagePage extends React.Component {
 }
 
 function mapStateToProps(state){
-    console.log(state)
-    return{
-        messages:reduceMessages(state.messages),
-        chats: getChats(state.bot.messages),
-        botItems: state.bot.items !== undefined ? state.bot.items : []
+    console.log('state',state)
+    
+    return {
+       // chats: state.bots.includes('messages') ? getChats(state.bot.messages.result): [],
+        botItems: state.bots
     }
 }
 function mapDispatchToProps(dispatch){

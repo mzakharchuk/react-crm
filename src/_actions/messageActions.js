@@ -17,12 +17,12 @@ export function sendMessage( token, message ){
     function success(message){ return { type:types.SEND_MESSAGE_SUCCESS, message } }
 }
 
-export function loadMessages( token, message ){
+export function loadMessages( bot){
     return dispatch => {
         return new Promise((resolve,rej) => {
             // telegramApi.post(`/bot${token}/sendMessage`, message)
             // .then(response => {
-                dispatch(success("a"))
+                dispatch(success(bot.name))
                 resolve()
         //     }).catch(error=>{
         //         throw(error)
@@ -30,6 +30,5 @@ export function loadMessages( token, message ){
         })
     }
 
-function success(messages){ return { type:types.LOAD_MESSAGE_SUCCESS, messages } }
-
+    function success(botname){ return { type:types.LOAD_MESSAGE_SUCCESS, botname } }
 }

@@ -23,9 +23,8 @@ class SettingsPage extends React.Component {
     }
 }
 function mapStateToProps(state){
-const {items} = state.bot
     return{
-        bots:items === undefined ? [] :items
+        bots:state.bots
     }
 
 }
