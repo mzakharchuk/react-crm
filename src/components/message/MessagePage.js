@@ -8,14 +8,41 @@ import { withRouter } from 'react-router-dom'
 import { GroupsBlock } from '../_common'
 import {MessageForm,MessageList} from './'
 import {
-    reduceMessage,
     reduceMessages,
     getChats} from '../../selectors'
 import './MessagePage.css'
 import {Tabs, Tab} from 'react-bootstrap'
-
-
+import styled from 'styled-components';
 const token = '511249933:AAGRiRrdE-DkPdIcM1wouJvak3ZB2rbkuvw'
+
+const TabsStyled = styled(Tabs)`
+    border-radius: 5px 5px 0 0;
+    
+    li[role="presentation"].active{
+        background-color: #556797;
+        border-radius: 5px 5px 0 0;
+        padding: 5px;
+        color:white;
+    }
+    li[role="presentation"]{
+        background-color: #b8cacd;
+        border-radius: 5px 5px 0 0;
+        padding: 5px;
+        & a {
+            color:white;
+        }
+    }
+    li[role="presentation"]:hover{
+         & a {
+            color:#ff886f;
+        }
+    }
+
+`
+const TabStyled = styled(Tab)`
+border: 1px solid #ccc;
+
+`
 class MessagePage extends React.Component {
     constructor(props){
         super(props)
@@ -79,10 +106,9 @@ class MessagePage extends React.Component {
     }
    
     render(){
-        console.log('render')
         return (
             <div className="jumbotron">
-                 <Tabs
+                 <TabsStyled
                     activeKey={this.state.key}
                     animation={true}
                     onSelect={this.onSelectTabHandler}
@@ -90,39 +116,36 @@ class MessagePage extends React.Component {
                 >
                     {this.props.botItems.map((item, index) => {
                         return (
-                        <Tab key={index}  eventKey={item.name} title={item.name}>
-                        <h2>messages</h2>
-                        <div className="container-message">
-                            <GroupsBlock
-                                selectedChat={this.state.selectedChat}
-                                groups={getChats(item.messages)} onSelect={this.onSelectHandler}/>
-                        {this.state.messages && this.state.selectedChat
-                    
-                            ?<div>
-                                <MessageList   
-                                    messages={reduceMessages(this.state.messages)}/>
-                                <MessageForm
-                                    placeholder="Type your message and hit ENTER"
-                                    message={this.state.message}
-                                    onChange={this.onChangeHandler}
-                                    onSendMessage={this.onSendMessageHandler}/>
+                        <TabStyled key={index}  eventKey={item.name} title={item.name}>
+                            <h2>messages</h2>
+                            <div className="container-message">
+                                <GroupsBlock
+                                    selectedChat={this.state.selectedChat}
+                                    groups={getChats(item.messages)} onSelect={this.onSelectHandler}/>
+                            {this.state.messages && this.state.selectedChat
+                        
+                                ?<div>
+                                    <MessageList   
+                                        messages={reduceMessages(this.state.messages)}/>
+                                    <MessageForm
+                                        placeholder="Type your message and hit ENTER"
+                                        message={this.state.message}
+                                        onChange={this.onChangeHandler}
+                                        onSendMessage={this.onSendMessageHandler}/>
+                                </div>
+                            :<h1>Please select and start you conversation</h1>}
                             </div>
-                        :<h1>Please select and start you conversation</h1>}
-                        </div>
-                        </Tab>
+                        </TabStyled>
                         )
                     })}
-                </Tabs>
+                </TabsStyled>
             </div>
         )
     }
 }
 
 function mapStateToProps(state){
-    console.log('state',state)
-    
     return {
-       // chats: state.bots.includes('messages') ? getChats(state.bot.messages.result): [],
         botItems: state.bots
     }
 }

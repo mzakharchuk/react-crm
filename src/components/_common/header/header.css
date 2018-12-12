@@ -1,6 +1,6 @@
 .navigation-bar {
     height: 45px; 
-    background-color: black; /* change to desired color */
+    background-color: #1b2135; /* change to desired color */
 }
 .logo {
     display: inline-block;
@@ -30,7 +30,7 @@
     padding: 0 8px 0 10px;
 }
 .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: green;
+    background: #d9bc7f;
     color: white;
 }
   

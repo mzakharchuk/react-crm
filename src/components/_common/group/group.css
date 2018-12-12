@@ -1,19 +1,11 @@
-.block {
-  width: 171px;
-  height: 48px;
-  margin: 10px;
-  padding: 5px;
-  background: rgb(240, 189, 189);
-  border-radius: 7px;
-  cursor: pointer;
-}
+
 .block > label{
   cursor: pointer;
-  color: antiquewhite;
+  color: #e9ebef;
 }
 .message-block {
     height: 100%;
 }
 .active-block, .block:hover{
-  background: salmon;
+  background: #b27642;
 }

@@ -12,7 +12,7 @@ const Sidenav = styled.div`
     z-index: 1;
     top: 45px;
     left: 0;
-    background-color: #111;
+    background-color: #1b2135;
     overflow-x: hidden;
     padding-top: 20px;
 `
@@ -36,18 +36,18 @@ const SideNanLink = styled(NavLink).attrs({
         padding: 6px 8px 6px 16px;
         text-decoration: none;
         font-size: 20px;
-        color: green;
+        color: #f8f9fa;
         display: block;
         border: none;
-        background: none;
+        background: #d9bc7f;
         width: 100%;
         text-align: left;
         cursor: pointer;
         outline: none;
     }
     &.active-nav-link {
-        background-color: green;
-        color: white;
+        background-color: #556797;
+        color: #f8f9fa;
       }
 
 `
