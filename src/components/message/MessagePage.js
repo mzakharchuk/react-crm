@@ -11,7 +11,7 @@ import {
     reduceMessages,
     getChats} from '../../selectors'
 import './MessagePage.css'
-import {Tabs, Tab} from 'react-bootstrap'
+import {Tabs, Tab, Jumbotron} from 'react-bootstrap'
 import styled from 'styled-components';
 const token = '511249933:AAGRiRrdE-DkPdIcM1wouJvak3ZB2rbkuvw'
 
@@ -107,7 +107,7 @@ class MessagePage extends React.Component {
    
     render(){
         return (
-            <div className="jumbotron">
+            <Jumbotron>
                  <TabsStyled
                     activeKey={this.state.key}
                     animation={true}
@@ -139,7 +139,7 @@ class MessagePage extends React.Component {
                         )
                     })}
                 </TabsStyled>
-            </div>
+            </Jumbotron>
         )
     }
 }

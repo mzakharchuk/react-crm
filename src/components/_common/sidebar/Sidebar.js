@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components';
 
-//import './sidebar.css'
+import './sidebar.css'
 
 
 const Sidenav = styled.div`
