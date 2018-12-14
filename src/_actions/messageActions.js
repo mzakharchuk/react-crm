@@ -33,6 +33,25 @@ export function deleteMessage( token, message ){
 
     function success(message){ return { type:types.DELETE_MESSAGE_SUCCESS, message } }
 }
+export function changeChatTitle( token, message ){
+    const sendData = {
+        chat_id:message.chatId,
+        title:message.text
+    }
+    return dispatch => {
+        return new Promise((resolve,rej) => {
+            telegramApi.post(`/bot${token}/setChatTitle`, sendData)
+            .then(response => {
+                dispatch(success(response.data.result))
+                resolve(response.data.result)
+            }).catch(error=>{
+                throw(error)
+            })
+        })
+    }
+
+    function success(message){ return { type:types.CHANGE_TITLE_CHANNEL_SUCCESS, message } }
+}
 
 export function loadMessages( bot){
     return dispatch => {

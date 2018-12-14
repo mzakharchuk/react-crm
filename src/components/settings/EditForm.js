@@ -1,5 +1,6 @@
 import React from 'react'
-import {ListGroupItem,FormControl} from 'react-bootstrap'
+import {ListGroupItem} from 'react-bootstrap'
+import {TextInput} from '../_common'
 
 export const EditForm = ({bot,editName,value,onSave,onCancel,onChange,onDelete,onEditMode}) => {
     return (
@@ -7,9 +8,18 @@ export const EditForm = ({bot,editName,value,onSave,onCancel,onChange,onDelete,o
         {bot.name === editName
         ?
         <div>
-            <FormControl style={{width:'94%',display:'inline-block'}}
-                type="text"
+            <TextInput style={{width:'94%',display:'inline-block',marginBottom:'10px'}}
+                label="Bot name"
+                name={'botname'}
+                value={bot.name}
+                disabled
+                placeholder="Enter text"
+                />
+                <br/>
+            <TextInput style={{width:'94%',display:'inline-block'}}
                 value={value}
+                name={'channel'}
+                label={'Title channel'}
                 placeholder="Enter text"
                 onChange={onChange}/>
             <span style={{ fontSize:'18px', float:'right', padding:'10px 0'}}>
@@ -30,14 +40,14 @@ export const EditForm = ({bot,editName,value,onSave,onCancel,onChange,onDelete,o
             <span>
                 {bot.channel}
             </span>
-            {/* <span style={{position:'relative', float:'right'}}>
+            <span style={{position:'relative', float:'right'}}>
                 <span className='color-edit' onClick={() => onEditMode(bot.name)}>
                     <i className="fas fa-pen"></i> 
                 </span> 
-                <span className='color-cancel' onClick={onDelete}>
+                {/* <span className='color-cancel' onClick={onDelete}>
                     <i className="far fa-trash-alt"></i>
-                </span>
-            </span> */}
+                </span> */}
+            </span>
         </div>}
 
     </ListGroupItem>

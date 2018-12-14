@@ -3,8 +3,10 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { Link } from 'react-router-dom'
 import * as botActions from '../../_actions/botActions'
+import * as messageActions from '../../_actions/messageActions'
 import {Jumbotron,ListGroup} from 'react-bootstrap'
 import {EditForm} from './EditForm'
+import {toastr} from 'react-redux-toastr'
 
 class SettingsPage extends React.Component {
     constructor(props){
@@ -15,7 +17,6 @@ class SettingsPage extends React.Component {
         }
 
         this.onChangeHandler = this.onChangeHandler.bind(this)
-        this.onDeleteHandler = this.onDeleteHandler.bind(this)
         this.onSaveHandler = this.onSaveHandler.bind(this)
         this.onCancelHandler = this.onCancelHandler.bind(this)
     }
@@ -29,12 +30,17 @@ class SettingsPage extends React.Component {
     onChangeHandler(e){
         this.setState({name:e.target.value})
     }
-    onDeleteHandler(){
-
-    }
+  
     onSaveHandler(){
         if(this.state.editName === this.state.name)
             this.setState({editName:''})
+            const bot = this.props.bots.find(x=> x.name == this.state.editName)
+
+            this.props.actions.changeChatTitle(bot.token,{chatId:bot.channel,text:this.state.name})
+            .then(()=>{
+                toastr.success('Title was changed')
+                this.setState({editName:''})
+            })
 
     }
 
@@ -52,7 +58,6 @@ class SettingsPage extends React.Component {
                         bot={item}
                         value={this.state.name}
                         onChange={this.onChangeHandler} 
-                        onDelete={this.onDeleteHandler}
                         onCancel={this.onCancelHandler}
                         onEditMode={this.onCancelHandler}
                         onSave={this.onSaveHandler}/>
@@ -70,7 +75,7 @@ function mapStateToProps(state){
 }
 function mapDispatchToProps(dispatch){
     return {
-        actions:bindActionCreators(botActions,dispatch)
+        actions:bindActionCreators({...botActions,...messageActions},dispatch)
     }
 
 }

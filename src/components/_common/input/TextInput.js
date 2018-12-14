@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const TextInput = ({name,label,value,onChange,error,placeholder,password = false}) =>{
+export const TextInput = ({name,label,value,onChange,error,placeholder,password = false,disabled = false}) =>{
     let wrapperClass = 'form-group'
     if(error && error.length>0)
         wrapperClass += ' '+ 'has-error'
@@ -12,6 +12,7 @@ export const TextInput = ({name,label,value,onChange,error,placeholder,password 
                 <input
                     type={password?'password':'text'}
                     name={name}
+                    disabled={disabled}
                     className="form-control"
                     placeholder={placeholder}
                     value={value}
