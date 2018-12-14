@@ -46,17 +46,16 @@ class SettingsPage extends React.Component {
                 <h2>Your bots</h2>
                 <ListGroup>
                     {this.props.bots.map(item => 
-                        <EditForm 
-                            editName={this.state.editName}
-                            key={item.name}
-                            bot={item}
-                            value={this.state.name}
-                            onChange={this.onChangeHandler} 
-                            onDelete={this.onDeleteHandler}
-                            onCancel={this.onCancelHandler}
-                            onEditMode={this.onCancelHandler}
-                            onSave={this.onSaveHandler}/>
-
+                    <EditForm 
+                        editName={this.state.editName}
+                        key={item.id}
+                        bot={item}
+                        value={this.state.name}
+                        onChange={this.onChangeHandler} 
+                        onDelete={this.onDeleteHandler}
+                        onCancel={this.onCancelHandler}
+                        onEditMode={this.onCancelHandler}
+                        onSave={this.onSaveHandler}/>
                     )}
                 </ListGroup>
             </Jumbotron>

@@ -19,7 +19,7 @@ export const GroupsBlock = ({ groups, onSelect, selectedChat }) => {
     return(
         <GroupMessage>
            {groups.map(group =>
-            <Block key={group.id} className={group.id === selectedChat ? 'active-block block':'block'} onClick={() => onSelect(group.id)}>
+            <Block key={group.id} className={group.id === selectedChat ? 'active-block block':'block'} onClick={() => onSelect({groupId:group.id,type:group.type})}>
               <label>{group.name}</label>
             </Block>
             )}

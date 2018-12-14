@@ -17,6 +17,23 @@ export function sendMessage( token, message ){
     function success(message){ return { type:types.SEND_MESSAGE_SUCCESS, message } }
 }
 
+export function deleteMessage( token, message ){
+
+    return dispatch => {
+        return new Promise((resolve,rej) => {
+            telegramApi.post(`/bot${token}/deleteMessage`, message)
+            .then(response => {
+                dispatch(success(message))
+                resolve(response.data.result)
+            }).catch(error=>{
+                throw(error)
+            })
+        })
+    }
+
+    function success(message){ return { type:types.DELETE_MESSAGE_SUCCESS, message } }
+}
+
 export function loadMessages( bot){
     return dispatch => {
         return new Promise((resolve,rej) => {

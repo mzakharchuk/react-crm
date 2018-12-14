@@ -10,6 +10,11 @@ const CreateForm = ({onChange,onSave,onCancel}) => {
                 onChange={onChange}
                 />
             <TextInput
+                name={'channel'}
+                label={'Channel'}
+                onChange={onChange}
+                />
+            <TextInput
                 name={'token'}
                 label={'Token'}
                 onChange={onChange}

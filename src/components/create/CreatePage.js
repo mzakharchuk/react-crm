@@ -37,7 +37,7 @@ class CreatePage extends React.Component {
         e.preventDefault()
         this.props.actions.registerBot(this.state.bot)
         .then(() => this.redirect())
-        .catch(error => toastr.error(error))
+        .catch(error => toastr.warning(error))
     }
 
     redirect(){

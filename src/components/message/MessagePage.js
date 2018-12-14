@@ -5,14 +5,11 @@ import * as botActions from '../../_actions/botActions'
 import * as messageActions from '../../_actions/messageActions'
 import {toastr} from 'react-redux-toastr'
 import { withRouter } from 'react-router-dom'
-import { GroupsBlock } from '../_common'
-import {MessageForm,MessageList} from './'
-import {
-    reduceMessages,
-    getChats} from '../../selectors'
+
 import './MessagePage.css'
-import {Tabs, Tab, Jumbotron} from 'react-bootstrap'
+import {Tabs, Tab,Jumbotron} from 'react-bootstrap'
 import styled from 'styled-components';
+import { TabContent } from './TabContent';
 const token = '511249933:AAGRiRrdE-DkPdIcM1wouJvak3ZB2rbkuvw'
 
 const TabsStyled = styled(Tabs)`
@@ -37,11 +34,6 @@ const TabsStyled = styled(Tabs)`
             color:#ff886f;
         }
     }
-
-`
-const TabStyled = styled(Tab)`
-border: 1px solid #ccc;
-
 `
 class MessagePage extends React.Component {
     constructor(props){
@@ -53,9 +45,10 @@ class MessagePage extends React.Component {
             messages:this.props.messages ? this.props.messages.filter(x=>x.chatId === this.props.groups[0].id) : []        
         }
         this.onChangeHandler = this.onChangeHandler.bind(this)
-        this.onSelectHandler = this.onSelectHandler.bind(this)
+        this.onSelectGroupHandler = this.onSelectGroupHandler.bind(this)
         this.onSendMessageHandler = this.onSendMessageHandler.bind(this)
         this.onSelectTabHandler = this.onSelectTabHandler.bind(this)
+        this.onDeleteMessageHandler = this.onDeleteMessageHandler.bind(this)
     }
     componentDidMount() {
         this.props.actions.loadBots().then(()=>{
@@ -70,9 +63,14 @@ class MessagePage extends React.Component {
         this.setState({key:bot.name})
     }
 
-    onSelectHandler(id){
-        this.setState({selectedChat:id})
-        const messages = this.props.botItems.find(x=>x.name===this.state.key).messages.filter(x=>x.chat.id === id)
+    onSelectGroupHandler({groupId,type}){
+        const selectedBot = this.props.botItems.find(x=>x.name===this.state.key)
+        if(!selectedBot) return
+        if(type==='channel')
+            this.setState({selectedChat:selectedBot.channel})
+        else
+            this.setState({selectedChat:groupId})
+        const messages = selectedBot.messages.filter(x=>x.chat.id === groupId)
         this.setState({messages})
     }
     onChangeHandler(e){
@@ -83,13 +81,12 @@ class MessagePage extends React.Component {
     onSendMessageHandler(e){
         e.preventDefault()
         const senddata = {
-            chat_id:this.state.selectedChat,
+            chat_id: this.state.selectedChat,
             text:this.state.message,
             options:{
                 disable_web_page_preview: true,
                 disable_notification: false,
                 }
-
         }
         this.props.actions.sendMessage(this.props.botItems.find(x=>x.name== this.state.key).token,senddata).then((data)=>{
             this.setState({messages:[
@@ -104,6 +101,16 @@ class MessagePage extends React.Component {
         this.loadBotConversation(this.props.botItems.find(x=>x.name==key))
         this.setState({selectedChat:'',messages:[]})
     }
+    onDeleteMessageHandler(messageId){
+        const senddata = {
+            chat_id: this.state.selectedChat,
+            message_id:messageId     
+        }
+
+        this.props.actions.deleteMessage(this.props.botItems.find(x => x.name == this.state.key).token,senddata).then((data)=>{
+            this.setState({messages:this.state.messages.filter(x=>  x.chat.id !== senddata.chat_id && x.message_id !== senddata.message_id)})
+        }).catch(error=> toastr.error(error))
+    }
    
     render(){
         return (
@@ -114,30 +121,19 @@ class MessagePage extends React.Component {
                     onSelect={this.onSelectTabHandler}
                     id="controlled-tab-example"
                 >
-                    {this.props.botItems.map((item, index) => {
-                        return (
-                        <TabStyled key={index}  eventKey={item.name} title={item.name}>
-                            <h2>messages</h2>
-                            <div className="container-message">
-                                <GroupsBlock
-                                    selectedChat={this.state.selectedChat}
-                                    groups={getChats(item.messages)} onSelect={this.onSelectHandler}/>
-                            {this.state.messages && this.state.selectedChat
-                        
-                                ?<div>
-                                    <MessageList   
-                                        messages={reduceMessages(this.state.messages)}/>
-                                    <MessageForm
-                                        placeholder="Type your message and hit ENTER"
-                                        message={this.state.message}
-                                        onChange={this.onChangeHandler}
-                                        onSendMessage={this.onSendMessageHandler}/>
-                                </div>
-                            :<h1>Please select and start you conversation</h1>}
-                            </div>
-                        </TabStyled>
-                        )
-                    })}
+                    {this.props.botItems.map((item, index) => 
+                      <Tab eventKey={item.name} key={index} title={item.name}>
+                             <TabContent 
+                                item={item}
+                                value={this.state.message}
+                                messages={this.state.messages}
+                                onSelectGroup={this.onSelectGroupHandler}
+                                onChange={this.onChangeHandler}
+                                onDelete={this.onDeleteMessageHandler}
+                                onSendMessage={this.onSendMessageHandler}
+                                selectedChat={this.state.selectedChat}/>
+                        </Tab>
+                    )}
                 </TabsStyled>
             </Jumbotron>
         )

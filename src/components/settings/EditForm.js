@@ -24,7 +24,11 @@ export const EditForm = ({bot,editName,value,onSave,onCancel,onChange,onDelete,o
 
         :<div>
             <span>
-                {bot.name}
+                {bot.name} 
+            </span>
+            = >
+            <span>
+                {bot.channel}
             </span>
             {/* <span style={{position:'relative', float:'right'}}>
                 <span className='color-edit' onClick={() => onEditMode(bot.name)}>
