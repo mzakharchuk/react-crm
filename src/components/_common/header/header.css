@@ -1,5 +1,7 @@
 .navigation-bar {
     height: 45px; 
+    width: -webkit-fill-available;
+    position: fixed;
     background-color: #1b2135; /* change to desired color */
 }
 .logo {
