@@ -22,13 +22,17 @@ import ReduxToastr from 'react-redux-toastr'
 class App extends React.Component {
     render(){
         return (
+            <Router history={history}>
             <div>
-                 {this.props.isLoggin ?<div>
-                <Header/>
-                 <Sidebar/></div>: null }
+                {this.props.isLoggin 
+                    ?<div>
+                        <Header/>                 
+                        <Sidebar/>
+                    </div>
+                    : null }
                 <div className="container">
-                <Router history={history}>
                     <Switch>
+                   
                         <PrivateRoute exact path="/" component={HomePage}/>
                         <PrivateRoute exact path="/message" component={MessagePage}/>
                         
@@ -40,19 +44,18 @@ class App extends React.Component {
                         <Route path="/register" component={RegisterPage}/>
                         <Route component={PageNotFound}/>
                     </Switch>
-                </Router>
-                <ReduxToastr
-                    timeOut={4000}
-                    newestOnTop={false}
-                    preventDuplicates
-                    position="top-right"
-                    transitionIn="fadeIn"
-                    transitionOut="fadeOut"
-                    progressBar
-                    closeOnToastrClick/>
+                    <ReduxToastr
+                        timeOut={4000}
+                        newestOnTop={false}
+                        preventDuplicates
+                        position="top-right"
+                        transitionIn="fadeIn"
+                        transitionOut="fadeOut"
+                        progressBar
+                        closeOnToastrClick/>
                 </div>
             </div>
-        )
+            </Router>)
     }
 }
 function mapStateToProps(state){

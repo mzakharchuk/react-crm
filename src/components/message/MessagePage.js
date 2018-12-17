@@ -122,7 +122,7 @@ class MessagePage extends React.Component {
                     id="controlled-tab-example"
                 >
                     {this.props.botItems.map((item, index) => 
-                      <Tab eventKey={item.name} key={index} title={item.name}>
+                        <Tab eventKey={item.name} key={index} title={item.name}>
                              <TabContent 
                                 item={item}
                                 value={this.state.message}

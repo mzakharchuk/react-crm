@@ -2,9 +2,6 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components';
 
-import './sidebar.css'
-
-
 const Sidenav = styled.div`
     height: 100%;
     width: 200px;
@@ -51,21 +48,14 @@ const SideNanLink = styled(NavLink).attrs({
       }
 
 `
-export class Sidebar extends React.Component {
-    render(){
-        return (
-            <div>
-                <Sidenav>
-                <SideNanLink to="/" exact activeClassName="active-nav-link">Home</SideNanLink>
-                <SideNanLink to="/message" activeClassName="active-nav-link">Message</SideNanLink>
-                <SideNanLink to="/settings" activeClassName="active-nav-link">Settings</SideNanLink>
-                </Sidenav>
-            </div>
-        //     <div className="sidenav">
-        //         <NavLink to="/" exact activeClassName="active-nav-link">Home</NavLink>
-        //         <NavLink to="/message" exact activeClassName="active-nav-link">Message</NavLink>
-        //         <NavLink to="/settings" exact activeClassName="active-nav-link">Settings</NavLink>
-        //   </div>
-        )
-    }
+export const Sidebar = () =>{
+    return (
+        <div>
+            <Sidenav>
+            <SideNanLink to="/" exact activeClassName="active-nav-link"  >Home</SideNanLink>
+            <SideNanLink to="/message" activeClassName="active-nav-link" >Message</SideNanLink>
+            <SideNanLink to="/settings" activeClassName="active-nav-link" >Settings</SideNanLink>
+            </Sidenav>
+        </div>
+    )
 }
