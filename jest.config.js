@@ -1,12 +1,13 @@
 module.exports = {
 
     transform : {
-        "^.+\\.(js|jsx)$": "babel-jest"
+        "^.+\\.(js|jsx)$": "babel-jest",
+        ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css"
     },
     testPathIgnorePatterns:[
-        "<rootDir>/__tests__/setup/"
+        "<rootDir>/src/__tests__/setup/"
     ],
-    setupTestFrameworkScriptFile:"<rootDir>/__tests__/setup/browse.js",
+    setupTestFrameworkScriptFile:"<rootDir>/src/__tests__/setup/browse.js",
     moduleFileExtensions:['js','jsx'],
     moduleNameMapper:{
         '^@/(.*)$':'<rootDir>/src/$1'

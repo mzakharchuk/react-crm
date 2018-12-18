@@ -16,7 +16,7 @@ export const Header = () => {
                     <i className="fa fa-caret-down"></i>
                     </a>
                     <div className="dropdown-content">
-                        <NavLink className='sub-menu' to="/login">Logout&nbsp;<i className="fas fa-sign-out-alt"></i></NavLink>
+                        {/* <NavLink className='sub-menu' to="/login">Logout&nbsp;<i className="fas fa-sign-out-alt"></i></NavLink> */}
                     </div>
                 </div> 
             </div> 

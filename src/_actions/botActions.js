@@ -43,7 +43,7 @@ export function loadBots(){
 
 export function getUpdates({token, name}){
     return dispatch => {
-         telegramApi.post(`/bot${token}/getUpdates`,{offset:0})
+         telegramApi.get(`/bot${token}/getUpdates`,{offset:0})
          // telegramApi.get(`/bot${token}/getWebhookInfo`)
         .then(response => {
             const result = {
