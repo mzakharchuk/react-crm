@@ -35,7 +35,7 @@ const TabsStyled = styled(Tabs)`
         }
     }
 `
-class MessagePage extends React.Component {
+export class MessagePage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -140,7 +140,7 @@ class MessagePage extends React.Component {
     }
 }
 
-function mapStateToProps(state){
+export function mapStateToProps(state){
     return {
         botItems: state.bots
     }
