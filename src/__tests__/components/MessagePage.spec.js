@@ -8,7 +8,7 @@ describe("Message page component", () => {
         botItems: [{ id:1,name:'test1'}],
         actions:{loadBots:() =>{return Promise.resolve()}}
     }
-    beforeEach(() =>{
+    beforeAll(() =>{
         wrapper = shallow(<MessagePage {...props} />)
     })
 

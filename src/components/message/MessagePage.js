@@ -10,7 +10,6 @@ import './MessagePage.css'
 import {Tabs, Tab,Jumbotron} from 'react-bootstrap'
 import styled from 'styled-components';
 import { TabContent } from './TabContent';
-const token = '511249933:AAGRiRrdE-DkPdIcM1wouJvak3ZB2rbkuvw'
 
 const TabsStyled = styled(Tabs)`
     border-radius: 5px 5px 0 0;
