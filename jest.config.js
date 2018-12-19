@@ -13,6 +13,6 @@ module.exports = {
         '^@/(.*)$':'<rootDir>/src/$1'
     },
     collectCoverage: true,
-   //collectCoverageFrom: ["src/**/*.{js,jsx}"]
+    collectCoverageFrom: ["src/**/*.{js,jsx}"]
    // setupFiles: ["./src/helpers/browse.js","./src/helpers/dom.js"],
 }

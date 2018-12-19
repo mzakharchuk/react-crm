@@ -22,12 +22,10 @@ describe("Message page component", () => {
         const appState = {
             bots:[{id:1,name:'bot 1'}]
         }
-
         // act
         const state = mapStateToProps(appState)
 
         // assert
         expect(state.botItems).toEqual(appState.bots)
     })
-
 })
