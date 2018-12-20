@@ -2,11 +2,9 @@ import React from 'react'
 import {MessageForm,MessageList} from '.'
 import { GroupsBlock } from '../_common'
 import {
-    reduceMessages,
-    getChats} from '../../selectors'
+    reduceMessages } from '../../selectors'
 
-export const TabContent = ({item,selectedChat,onSelectGroup,onChange,onDelete,onSendMessage,messages,value }) => {
-    const messagesGroup = getChats(item.messages)
+export const TabContent = ({messagesGroup,selectedChat,onSelectGroup,onChange,onDelete,onSendMessage,messages,value }) => {
     const privatGroup = messagesGroup.filter(x=> x.type == 'private')
     const channelGroup = messagesGroup.filter(x=> x.type == 'channel')
 

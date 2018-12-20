@@ -1,19 +1,15 @@
 import React from 'react'
 import {TabContent} from '../../components/message'
 import {GroupsBlock} from '../../components/_common'
+jest.mock('../../selectors/messageSelector',()=>({ getChats: () =>[]}))
 
 describe("<TabContent/> component",() => {
+    
     const props ={
-        item:{
-            messages:[
-                {
-                    chat:{type:'private',id:1,name:'test 1'}
-                },
-                {
-                    chat:{type:'channel',id:1,name:'test 2'}
-                }
-            ]
-            },
+            messagesGroup:[
+                {id:1,type:'private',name:'test 1'},
+                {id:2,type:'channel',name:'test 2'}
+            ],
         selectedChat:'',
         onSelectGroup:() =>{},
         onChange:() =>{},
@@ -22,15 +18,17 @@ describe("<TabContent/> component",() => {
         messages:[]
 
     }
-    
+    let wrapper
     beforeEach(()=>{
-        console.log('before each')
+        wrapper = shallow(<TabContent {...props}/>)
     })
-
+    
     it('Should render tab content',() => {
-       const wrapper = shallow(<TabContent {...props}/>)
         expect(wrapper.find('.container-message').length).toBe(1)
+        expect(wrapper.find('h1').text()).toBe('Please select and start you conversation')
     })
-   
+    it('Should render GroupsBlock',() => {
+        expect(wrapper.find(GroupsBlock).length).toBe(2)
+     })
 
 })

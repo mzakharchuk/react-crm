@@ -5,6 +5,9 @@ import * as botActions from '../../_actions/botActions'
 import * as messageActions from '../../_actions/messageActions'
 import {toastr} from 'react-redux-toastr'
 import { withRouter } from 'react-router-dom'
+import {
+    
+    getChats} from '../../selectors'
 
 import './MessagePage.css'
 import {Tabs, Tab,Jumbotron} from 'react-bootstrap'
@@ -123,7 +126,7 @@ export class MessagePage extends React.Component {
                     {this.props.botItems.map((item, index) => 
                         <Tab eventKey={item.name} key={index} title={item.name}>
                              <TabContent 
-                                item={item}
+                                item={getChats(item.messages)}
                                 value={this.state.message}
                                 messages={this.state.messages}
                                 onSelectGroup={this.onSelectGroupHandler}

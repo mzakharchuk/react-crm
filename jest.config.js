@@ -1,5 +1,5 @@
 module.exports = {
-
+    verbose:true,
     transform : {
         "^.+\\.(js|jsx)$": "babel-jest",
         ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css"
@@ -12,7 +12,5 @@ module.exports = {
     moduleNameMapper:{
         '^@/(.*)$':'<rootDir>/src/$1'
     },
-    collectCoverage: true,
     collectCoverageFrom: ["src/**/*.{js,jsx}"]
-   // setupFiles: ["./src/helpers/browse.js","./src/helpers/dom.js"],
 }
